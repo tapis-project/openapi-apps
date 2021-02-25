@@ -111,7 +111,7 @@ paths:
       tags:
         - Applications
       summary: Create a new version of an application
-      description: Create an application using a request body. App id+version must be unique within tenant and can be composed of alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character and can be no more than 256 characters in length.'
+      description: Create an application using a request body. App id+version must be unique within tenant and can be composed of alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character and can be no more than 80 characters in length.'
       operationId: createAppVersion
       parameters:
         - name: pretty
@@ -298,7 +298,7 @@ paths:
       tags:
         - Applications
       summary: Soft delete all versions of an application
-      description: Soft delete an application given the application name.
+      description: Soft delete an application given the application name. Must specify confirm=true to complete the action.
       operationId: deleteApp
       parameters:
         - name: appId
@@ -309,6 +309,11 @@ paths:
         - name: pretty
           in: query
           description: Pretty print the response
+          schema:
+            type: boolean
+        - name: confirm
+          in: query
+          description: Must be specified to complete the action. For example confirm=true. Default is false.
           schema:
             type: boolean
       responses:
@@ -780,9 +785,6 @@ components:
     App:
       type: object
       properties:
-        seq_id:
-          type: integer
-          format: int32
         tenant:
           type: string
         id:
