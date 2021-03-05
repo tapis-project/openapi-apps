@@ -72,11 +72,6 @@ paths:
       description: Retrieve applications. Use search and select query parameters to limit results.
       operationId: getApps
       parameters:
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
         - name: search
           in: query
           description: Search conditions as a single query paramter. For example search=(id.like.MyApp*)~(enabled.eq.true)
@@ -113,12 +108,6 @@ paths:
       summary: Create a new version of an application
       description: Create an application using a request body. App id+version must be unique within tenant and can be composed of alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character and can be no more than 80 characters in length.'
       operationId: createAppVersion
-      parameters:
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       requestBody:
         required: true
         description: A JSON object specifying information for the app to be created.
@@ -164,12 +153,6 @@ paths:
       summary: Retrieve applications matching search conditions specified as query parameters.
       description: Retrieve details for applications. Use query parameters to specify search conditions. For example ?owner.eq=jdoe&port.gt=1024
       operationId: searchAppsQueryParameters
-      parameters:
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       responses:
         '200':
           description: Success.
@@ -201,12 +184,6 @@ paths:
       summary: Retrieve applications matching search conditions.
       description: Retrieve details for applications. Use request body to specify SQL-like search conditions.
       operationId: searchAppsRequestBody
-      parameters:
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       requestBody:
         required: true
         description: A JSON object specifying SQL-like search conditions as an array of strings. Strings are concatenated to form full search query.
@@ -252,11 +229,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
         - name: requireExecPerm
           in: query
           description: check for EXECUTE permission as well as READ permission.
@@ -306,11 +278,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
         - name: confirm
           in: query
           description: Must be specified to complete the action. For example confirm=true. Default is false.
@@ -359,11 +326,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
         - name: requireExecPerm
           in: query
           description: check for EXECUTE permission as well as READ permission.
@@ -418,11 +380,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       requestBody:
         required: true
         description: A JSON object specifying changes to be applied.
@@ -474,11 +431,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response. For example pretty=true. Default is false.
-          schema:
-            type: boolean
       responses:
         '200':
           description: Check successful.
@@ -522,11 +474,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       responses:
         '200':
           description: Application owner updated.
@@ -572,11 +519,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       responses:
         '200':
           description: Success.
@@ -625,11 +567,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       requestBody:
         required: true
         description: A JSON object specifying a list of permissions.
@@ -681,11 +618,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       requestBody:
         required: true
         description: A JSON object specifying a list of permissions.
@@ -736,11 +668,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: pretty
-          in: query
-          description: Pretty print the response
-          schema:
-            type: boolean
       responses:
         '200':
           description: Permission revoked.
@@ -1026,12 +953,27 @@ components:
     ReqUpdateApp:
       type: object
       properties:
-        version:
-          type: string
         description:
           type: string
         enabled:
           type: boolean
+        runtime:
+          $ref: '#/components/schemas/RuntimeEnum'
+        runtimeVersion:
+          type: string
+        containerImage:
+          type: string
+        maxJobs:
+          type: integer
+          default: -1
+        maxJobsPerUser:
+          type: integer
+          default: -1
+        strictFileInputs:
+          type: boolean
+          default: false
+        jobAttributes:
+          $ref: '#/components/schemas/JobAttributes'
         tags:
           type: array
           items:
