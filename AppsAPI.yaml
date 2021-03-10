@@ -146,7 +146,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RespBasic'
-  '/v3/apps/search/apps':
+  '/v3/apps/search':
     get:
       tags:
         - Applications
