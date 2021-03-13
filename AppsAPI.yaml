@@ -366,8 +366,8 @@ paths:
     patch:
       tags:
         - Applications
-      summary: Update an existing version of an application
-      description: Update existing version of an application. Attributes that may be updated are description, enabled, TBD, tags, notes.
+      summary: Update existing version of an application
+      description: Update existing version of an application.
       operationId: updateApp
       parameters:
         - name: appId
@@ -438,6 +438,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RespBoolean'
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/enable':
+    post:
+      tags:
+        - Applications
+      summary: Make an application availabe for use.
+      description: Make an application available for use. Applies to all versions.
+      operationId: enableApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Application enabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/disable':
+    post:
+      tags:
+        - Applications
+      summary: Mark an application unavailabe.
+      description: Mark an application unavailable for use. Applies to all versions.
+      operationId: disableApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Application disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
         '401':
           description: Not authorized.
           content:
@@ -955,8 +1031,6 @@ components:
       properties:
         description:
           type: string
-        enabled:
-          type: boolean
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
