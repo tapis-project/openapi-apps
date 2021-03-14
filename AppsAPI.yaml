@@ -460,8 +460,8 @@ paths:
     post:
       tags:
         - Applications
-      summary: Make an application availabe for use.
-      description: Make an application available for use. Applies to all versions.
+      summary: Mark an application availabe for use.
+      description: Mark an application available for use. Applies to all versions.
       operationId: enableApp
       parameters:
         - name: appId
@@ -498,7 +498,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application unavailabe.
+      summary: Mark an application unavailabe for use.
       description: Mark an application unavailable for use. Applies to all versions.
       operationId: disableApp
       parameters:
