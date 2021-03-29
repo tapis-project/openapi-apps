@@ -629,7 +629,7 @@ paths:
     post:
       tags:
         - Permissions
-      summary: Create application user permissions
+      summary: Grant application user permissions
       description: Create permissions in the Security Kernel for a user. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: grantUserPerms
       parameters:
@@ -681,7 +681,7 @@ paths:
       tags:
         - Permissions
       summary: Revoke application user permissions
-      description: Revoke permissions in the Security Kernel for a user. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
+      description: Remove permissions from the Security Kernel for a user. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: revokeUserPerms
       parameters:
         - name: appId
@@ -726,7 +726,7 @@ paths:
       tags:
         - Permissions
       summary: Revoke application user permission
-      description: Revoke user permission in the Security Kernel. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
+      description: Remove user permission from the Security Kernel. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: revokeUserPerm
       parameters:
         - name: appId
@@ -980,7 +980,6 @@ components:
           type: string
         emailAddress:
           type: string
-
     # -------------------------------------------------------------------------
     # --- Request objects -----------------------------------------------------
     # -------------------------------------------------------------------------
@@ -1066,7 +1065,6 @@ components:
           type: array
           items:
             type: string
-
     # -------------------------------------------------------------------------
     # --- Response objects ----------------------------------------------------
     # -------------------------------------------------------------------------
