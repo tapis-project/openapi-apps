@@ -333,6 +333,12 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: select
+          in: query
+          description: List of attributes to be included as part of the result item. For example select=id,version,owner
+          schema:
+            type: string
+            default: 'allAttributes'
       responses:
         '200':
           description: Application found.
@@ -430,6 +436,12 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: select
+          in: query
+          description: List of attributes to be included as part of the result item. For example select=id,version,owner
+          schema:
+            type: string
+            default: 'allAttributes'
       responses:
         '200':
           description: Application found.
@@ -1288,6 +1300,19 @@ components:
             $ref: '#/components/schemas/App'
         metadata:
           type: object
+          properties:
+            recordCount:
+              type: integer
+            recordLimit:
+              type: integer
+            recordsSkipped:
+              type: integer
+            sortBy:
+              type: string
+            startAfter:
+              type: string
+            totalCount:
+              type: integer
     # -------------------------------------------------------------------------
     # --- Enums ---------------------------------------------------------------
     # -------------------------------------------------------------------------
