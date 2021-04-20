@@ -1329,6 +1329,7 @@ components:
     RuntimeOptionEnum:
       type: string
       enum:
+        - NONE
         - SINGULARITY_START
         - SINGULARITY_RUN
     NotificationMechanismEnum:
