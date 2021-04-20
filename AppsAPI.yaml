@@ -1329,8 +1329,8 @@ components:
     RuntimeOptionEnum:
       type: string
       enum:
-        - 'SINGULARITY\_START'
-        - 'SINGULARITY\_RUN'
+        - 'SINGULARITY_START'
+        - 'SINGULARITY_RUN'
     NotificationMechanismEnum:
       type: string
       enum:
