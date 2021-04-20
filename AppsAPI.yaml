@@ -1334,6 +1334,10 @@ components:
         - START_A
         - RUN_A
         - A_B
+        - SING_START
+        - SING_RUN
+        - SINGULARITY_START
+        - SINGULARITY_RUN
     NotificationMechanismEnum:
       type: string
       enum:
