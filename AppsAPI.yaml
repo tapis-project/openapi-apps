@@ -894,8 +894,8 @@ components:
     # ------------------------------------------------------------------------------
     # --- Model objects ------------------------------------------------------------
     # ------------------------------------------------------------------------------
-    # --- App ------------------------------------------------------------------
-    App:
+    # --- TapisApp ------------------------------------------------------------------
+    TapisApp:
       type: object
       properties:
         tenant:
@@ -1282,7 +1282,7 @@ components:
         version:
           type: string
         result:
-          $ref: '#/components/schemas/App'
+          $ref: '#/components/schemas/TapisApp'
         metadata:
           type: object
     RespApps:
@@ -1297,7 +1297,7 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/App'
+            $ref: '#/components/schemas/TapisApp'
         metadata:
           type: object
           properties:
