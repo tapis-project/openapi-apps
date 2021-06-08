@@ -68,7 +68,7 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve applications.
+      summary: Retrieve applications
       description: Retrieve list of applications. Use search and select query parameters to limit results.
       operationId: getApps
       parameters:
@@ -144,7 +144,28 @@ paths:
       tags:
         - Applications
       summary: Create a new version of an application
-      description: Create an application using a request body. App id+version must be unique within tenant and can be composed of alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character and can be no more than 80 characters in length.'
+      description: |
+
+      Create an application using a request body. App id+version must be unique within tenant and can be composed of
+      alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
+      and can be no more than 80 characters in length.
+
+      Note that certain attributes (such as tenant) are allowed but ignored so that the JSON returned by a GET may be
+      modified and used in a POST or PUT to create or update an application.
+      The attributes that are allowed but ignored are
+
+        - tenant
+        - uuid
+        - deleted
+        - created
+        - updated
+
+      In addition for a PUT operation the following non-updatable attributes are allowed but ignored
+
+        - id
+        - appType
+        - owner
+        - enabled
       operationId: createAppVersion
       requestBody:
         required: true
@@ -188,7 +209,7 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve list of applications matching search conditions specified as query parameters.
+      summary: Retrieve list of applications matching search conditions specified as query parameters
       description: Retrieve details for applications. Use query parameters to specify search conditions. For example ?owner.eq=jdoe&enabled.eq=false
       operationId: searchAppsQueryParameters
       parameters:
@@ -252,7 +273,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Retrieve applications matching search conditions.
+      summary: Retrieve applications matching search conditions
       description: Retrieve details for applications. Use request body to specify SQL-like search conditions.
       operationId: searchAppsRequestBody
       parameters:
@@ -440,11 +461,11 @@ paths:
     patch:
       tags:
         - Applications
-      summary: Update attributes for an existing version. Request body may only contain updatable attributes.
+      summary: Update attributes for an existing version
       description: |
         Update existing version of an application. Request body may only contain updatable attributes.
 
-        Attributes that may not be updated via PATCH are:
+        Attributes that may not be updated via PATCH are
 
           - id
           - appType
@@ -542,7 +563,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application availabe for use.
+      summary: Mark an application availabe for use
       description: Mark an application available for use. Applies to all versions.
       operationId: enableApp
       parameters:
@@ -580,7 +601,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application unavailabe for use.
+      summary: Mark an application unavailabe for use
       description: Mark an application unavailable for use. Applies to all versions.
       operationId: disableApp
       parameters:
@@ -618,7 +639,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application as deleted.
+      summary: Mark an application as deleted
       description: Mark an application as deleted. Application will not appear in queries unless explicitly requested.
       operationId: deleteApp
       parameters:
@@ -656,7 +677,7 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application as not deleted.
+      summary: Mark an application as not deleted
       description: Mark an application as not deleted. Application will appear in queries.
       operationId: undeleteApp
       parameters:
