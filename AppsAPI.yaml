@@ -440,7 +440,7 @@ paths:
     patch:
       tags:
         - Applications
-      summary: 'Update attributes for an existing version of an application. Following attributes may not be updated via PATCH: id, appType, owner, enabled, containerized, isInteractive'
+      summary: Update attributes for an existing version. Attributes that may not be updated via PATCH are *id*, *appType*, *owner*, *enabled*
       description: Update existing version of an application.
       operationId: updateApp
       parameters:
