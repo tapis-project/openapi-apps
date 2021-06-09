@@ -165,7 +165,6 @@ paths:
         - id
         - appType
         - owner
-        - enabled
       operationId: createAppVersion
       requestBody:
         required: true
