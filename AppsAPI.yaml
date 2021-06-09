@@ -146,27 +146,26 @@ paths:
       summary: Create a new version of an application
       description: |
 
-      Create an application using a request body. App id+version must be unique within tenant and can be composed of
-      alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
-      and can be no more than 80 characters in length.
+        Create an application using a request body. App id+version must be unique within tenant and can be composed of
+        alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
+        and can be no more than 80 characters in length.
 
-      Note that certain attributes (such as tenant) are allowed but ignored so that the JSON returned by a GET may be
-      modified and used in a POST or PUT to create or update an application.
-      The attributes that are allowed but ignored are
+        Note that certain attributes (such as tenant) are allowed but ignored so that the JSON returned by a GET may be
+        modified and used in a POST or PUT to create or update an application.
+        The attributes that are allowed but ignored are
 
-        - tenant
-        - uuid
-        - deleted
-        - created
-        - updated
+          - tenant
+          - uuid
+          - deleted
+          - created
+          - updated
 
-      In addition for a PUT operation the following non-updatable attributes are allowed but ignored
+        In addition for a PUT operation the following non-updatable attributes are allowed but ignored
 
-      - id
-      - appType
-      - owner
-      - enabled
-
+          - id
+          - appType
+          - owner
+          - enabled
       operationId: createAppVersion
       requestBody:
         required: true
