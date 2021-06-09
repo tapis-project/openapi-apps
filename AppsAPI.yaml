@@ -162,9 +162,11 @@ paths:
 
       In addition for a PUT operation the following non-updatable attributes are allowed but ignored
 
-        - id
-        - appType
-        - owner
+      - id
+      - appType
+      - owner
+      - enabled
+
       operationId: createAppVersion
       requestBody:
         required: true
