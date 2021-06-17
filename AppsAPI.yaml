@@ -475,6 +475,7 @@ paths:
           - appType
           - owner
           - enabled
+
         Note that the attributes owner and enabled may be modified using other endpoints.
       operationId: updateApp
       parameters:
