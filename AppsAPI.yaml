@@ -79,9 +79,10 @@ paths:
             type: string
         - name: limit
           in: query
-          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is unlimited.
+          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is 100.
           schema:
             type: integer
+            default: 100
         - name: orderBy
           in: query
           description: Attribute for sorting. Direction may be included. For example orderBy=id(desc). Default direction is (asc).
@@ -150,8 +151,8 @@ paths:
         alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
         and can be no more than 80 characters in length.
 
-        Note that certain attributes (such as tenant) are allowed but ignored so that the JSON returned by a GET may be
-        modified and used in a POST or PUT to create or update an application.
+        Note that certain attributes (such as tenant) are allowed but ignored so that the JSON result returned by a GET
+        may be modified and used when making a POST request to create an application.
         The attributes that are allowed but ignored are
 
           - tenant
@@ -215,9 +216,10 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is unlimited.
+          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is 100.
           schema:
             type: integer
+            default: 100
         - name: orderBy
           in: query
           description: Attribute for sorting. Direction may be included. For example orderBy=id(desc). Default direction is (asc).
@@ -279,9 +281,10 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is unlimited.
+          description: Limit number of items returned. For example limit=10. Use -1 for unlimited. Default is 100.
           schema:
             type: integer
+            default: 100
         - name: orderBy
           in: query
           description: Attribute for sorting. Direction may be included. For example orderBy=id(desc). Default direction is (asc).
@@ -461,9 +464,10 @@ paths:
     patch:
       tags:
         - Applications
-      summary: Update attributes for an existing version
+      summary: Update selected attributes of an existing version of an application
       description: |
-        Update existing version of an application. Request body may only contain updatable attributes.
+        Update selected attributes of an existing version of an application.
+        Request body may only contain updatable attributes. Application must exist.
 
         Attributes that may not be updated via PATCH are
 
@@ -471,6 +475,7 @@ paths:
           - appType
           - owner
           - enabled
+        Note that the attributes owner and enabled may be modified using other endpoints.
       operationId: updateApp
       parameters:
         - name: appId
@@ -515,6 +520,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+    put:
+      tags:
+        - Applications
+      summary: Update all updatable attributes of an application
+      description: |
+        Update all updatable attributes of an application using a request body identical to POST. Application must exist.
+
+        Note that certain attributes (such as tenant) are allowed but ignored so that the JSON result returned by a GET
+        may be modified and used when making a PUT request to update.
+
+        The attributes that are allowed but ignored for both PUT and POST are
+
+          - tenant
+          - uuid
+          - deleted
+          - created
+          - updated
+
+        In addition for a PUT operation the following non-updatable attributes are allowed but ignored
+
+          - id
+          - version
+          - appType
+          - owner
+          - enabled
+
+        Note that the attributes owner and enabled may be modified using other endpoints.
+      operationId: putApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: A JSON object specifying changes to be applied.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReqPutApp'
+      responses:
+        '200':
+          description: Application updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespResourceUrl'
+        '400':
+          description: Input error. Invalid JSON.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '409':
+          description: Application already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespResourceUrl'
         '500':
           description: Server error.
           content:
@@ -1241,6 +1323,36 @@ components:
             type: string
         notes:
           type: object
+    ReqPutApp:
+      type: object
+      properties:
+        description:
+          type: string
+        runtime:
+          $ref: '#/components/schemas/RuntimeEnum'
+        runtimeVersion:
+          type: string
+        runtimeOptions:
+          $ref: '#/components/schemas/RuntimeOptions'
+        containerImage:
+          type: string
+        maxJobs:
+          type: integer
+          default: -1
+        maxJobsPerUser:
+          type: integer
+          default: -1
+        strictFileInputs:
+          type: boolean
+          default: false
+        jobAttributes:
+          $ref: '#/components/schemas/JobAttributes'
+        tags:
+          type: array
+          items:
+            type: string
+        notes:
+          type: object
     ReqPerms:
       type: object
       properties:
@@ -1400,6 +1512,8 @@ components:
       enum:
         - SINGULARITY
         - DOCKER
+    # NOTE: RuntimeOption starts with NONE due to a bug in client code generation.
+    #       Without an initial entry the prefix SINGULARITY_ gets stripped off the other 2 entries.
     RuntimeOptionEnum:
       type: string
       enum:
