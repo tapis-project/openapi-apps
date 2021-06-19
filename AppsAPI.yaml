@@ -160,13 +160,6 @@ paths:
           - deleted
           - created
           - updated
-
-        In addition for a PUT operation the following non-updatable attributes are allowed but ignored
-
-          - id
-          - appType
-          - owner
-          - enabled
       operationId: createAppVersion
       requestBody:
         required: true
@@ -477,7 +470,7 @@ paths:
           - enabled
 
         Note that the attributes owner and enabled may be modified using other endpoints.
-      operationId: updateApp
+      operationId: patchApp
       parameters:
         - name: appId
           in: path
@@ -495,7 +488,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReqUpdateApp'
+              $ref: '#/components/schemas/ReqPatchApp'
       responses:
         '200':
           description: Application updated.
@@ -1294,7 +1287,7 @@ components:
             type: string
         notes:
           type: object
-    ReqUpdateApp:
+    ReqPatchApp:
       type: object
       properties:
         description:
