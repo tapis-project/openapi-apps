@@ -1178,6 +1178,9 @@ components:
               type: array
               items:
                 type: string
+            includeLaunchFiles:
+                type: boolean
+                default: true
     # --- FileInputDefinition --------------------------------------------------------
     FileInputDefinition:
       type: object
