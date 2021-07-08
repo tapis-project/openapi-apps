@@ -1127,10 +1127,10 @@ components:
           default: true
         parameterSet:
           $ref: '#/components/schemas/ParameterSet'
-        fileInputDefinitions:
+        fileInputs:
           type: array
           items:
-            $ref: '#/components/schemas/FileInputDefinition'
+            $ref: '#/components/schemas/FileInput'
         nodeCount:
           type: integer
         coresPerNode:
@@ -1181,8 +1181,8 @@ components:
             includeLaunchFiles:
                 type: boolean
                 default: true
-    # --- FileInputDefinition --------------------------------------------------------
-    FileInputDefinition:
+    # --- FileInput --------------------------------------------------------
+    FileInput:
       type: object
       properties:
         sourceUrl:
