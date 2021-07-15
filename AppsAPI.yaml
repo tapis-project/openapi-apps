@@ -410,7 +410,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/AppVersionString'
         - name: requireExecPerm
           in: query
           description: check for EXECUTE permission as well as READ permission.
@@ -481,7 +481,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/AppVersionString'
       requestBody:
         required: true
         description: A JSON object specifying changes to be applied.
@@ -558,7 +558,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/AppVersionString'
       requestBody:
         required: true
         description: A JSON object specifying changes to be applied.
@@ -1048,9 +1048,9 @@ components:
         id:
           $ref: '#/components/schemas/IdString'
         version:
-          type: string
+          $ref: '#/components/schemas/AppVersionString'
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionString'
         appType:
           $ref: '#/components/schemas/AppTypeEnum'
         owner:
@@ -1099,7 +1099,7 @@ components:
       type: object
       properties:
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionString'
         dynamicExecSystem:
           type: boolean
           default: false
@@ -1269,6 +1269,13 @@ components:
       type: string
       minLength: 1
       maxLength: 80
+    AppVersionString:
+      type: string
+      minLength: 1
+      maxLength: 64
+    DescriptionString:
+      type: string
+      maxLength: 2048
     UserNameString:
       type: string
       minLength: 1
@@ -1304,9 +1311,9 @@ components:
         id:
           $ref: '#/components/schemas/IdString'
         version:
-          type: string
+          $ref: '#/components/schemas/AppVersionString'
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionString'
         appType:
           $ref: '#/components/schemas/AppTypeEnum'
         owner:
@@ -1343,7 +1350,7 @@ components:
       type: object
       properties:
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -1373,7 +1380,7 @@ components:
       type: object
       properties:
         description:
-          type: string
+          $ref: '#/components/schemas/DescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
