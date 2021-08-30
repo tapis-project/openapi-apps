@@ -1083,6 +1083,9 @@ components:
             type: string
         notes:
           type: object
+        uuid:
+          type: string
+          format: uuid
         deleted:
           type: boolean
         created:
