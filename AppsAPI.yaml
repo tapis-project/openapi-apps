@@ -1050,7 +1050,7 @@ components:
         version:
           $ref: '#/components/schemas/AppVersionString'
         description:
-          $ref: '#/components/schemas/DescriptionString'
+          $ref: '#/components/schemas/AppJobDescriptionString'
         appType:
           $ref: '#/components/schemas/AppTypeEnum'
         owner:
@@ -1102,7 +1102,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/DescriptionString'
+          $ref: '#/components/schemas/AppJobDescriptionString'
         dynamicExecSystem:
           type: boolean
           default: false
@@ -1135,11 +1135,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FileInput'
+        fileInputArrays:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileInputArray'
         nodeCount:
           type: integer
         coresPerNode:
           type: integer
-        memoryMB:
+        memoryMb:
           type: integer
         maxMinutes:
           type: integer
@@ -1191,29 +1195,28 @@ components:
     FileInput:
       type: object
       required:
-        - meta
+        - name
       properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          $ref: '#/components/schemas/ArgDescriptionString'
+        inputMode:
+          $ref: '#/components/schemas/InputModeEnum'
+        inPlace:
+          type: boolean
+          default: false
         sourceUrl:
           type: string
         targetPath:
           type: string
-        inPlace:
-          type: boolean
-          default: false
         meta:
-          $ref: '#/components/schemas/ArgMetaSpec'
-    # --- ArgSpec --------------------------------------------------------------
-    ArgSpec:
-      type: object
-      required:
-        - arg
-      properties:
-        arg:
-          type: string
-        meta:
-          $ref: '#/components/schemas/ArgMetaSpec'
-    # --- ArgMetaSpec ----------------------------------------------------------
-    ArgMetaSpec:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+    # --- FileInputArray --------------------------------------------------------
+    FileInputArray:
       type: object
       required:
         - name
@@ -1222,11 +1225,40 @@ components:
           type: string
           minLength: 1
         description:
-          type: string
-        required:
+          $ref: '#/components/schemas/ArgDescriptionString'
+        inputMode:
+          $ref: '#/components/schemas/InputModeEnum'
+        inPlace:
           type: boolean
           default: false
-        keyValuePairs:
+        sourceUrls:
+          type: array
+          items:
+            type: string
+        targetPaths:
+          type: array
+          items:
+            type: string
+        meta:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+    # --- ArgSpec --------------------------------------------------------------
+    ArgSpec:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          $ref: '#/components/schemas/ArgDescriptionString'
+        inputMode:
+          $ref: '#/components/schemas/InputModeEnum'
+        arg:
+          type: string
+        meta:
           type: array
           items:
             $ref: '#/components/schemas/KeyValuePair'
@@ -1241,6 +1273,7 @@ components:
           minLength: 1
         value:
           type: string
+          default: ""
     # --- NotificationSubscription -------------------------------------------
     NotificationSubscription:
       type: object
@@ -1276,9 +1309,12 @@ components:
       type: string
       minLength: 1
       maxLength: 64
-    DescriptionString:
+    AppJobDescriptionString:
       type: string
       maxLength: 2048
+    ArgDescriptionString:
+      type: string
+      maxLength: 8096
     UserNameString:
       type: string
       minLength: 1
@@ -1317,7 +1353,7 @@ components:
         version:
           $ref: '#/components/schemas/AppVersionString'
         description:
-          $ref: '#/components/schemas/DescriptionString'
+          $ref: '#/components/schemas/AppJobDescriptionString'
         appType:
           $ref: '#/components/schemas/AppTypeEnum'
         owner:
@@ -1354,7 +1390,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/DescriptionString'
+          $ref: '#/components/schemas/AppJobDescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -1384,7 +1420,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/DescriptionString'
+          $ref: '#/components/schemas/AppJobDescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -1590,3 +1626,10 @@ components:
         - EMAIL
         - QUEUE
         - ACTOR
+    InputModeEnum:
+      type: string
+      enum:
+        - REQUIRED
+        - OPTIONAL
+        - FIXED
+      default: OPTIONAL
