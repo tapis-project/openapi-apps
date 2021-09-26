@@ -1143,7 +1143,7 @@ components:
           type: integer
         coresPerNode:
           type: integer
-        memoryMb:
+        memoryMB:
           type: integer
         maxMinutes:
           type: integer
@@ -1194,8 +1194,6 @@ components:
     # --- FileInput --------------------------------------------------------
     FileInput:
       type: object
-      required:
-        - name
       properties:
         name:
           type: string
@@ -1211,10 +1209,6 @@ components:
           type: string
         targetPath:
           type: string
-        meta:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
     # --- FileInputArray --------------------------------------------------------
     FileInputArray:
       type: object
@@ -1239,10 +1233,6 @@ components:
           type: array
           items:
             type: string
-        meta:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
     # --- ArgSpec --------------------------------------------------------------
     ArgSpec:
       type: object
@@ -1258,10 +1248,6 @@ components:
           $ref: '#/components/schemas/InputModeEnum'
         arg:
           type: string
-        meta:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
     # --- KeyValuePair -------------------------------------------------------
     KeyValuePair:
       type: object
