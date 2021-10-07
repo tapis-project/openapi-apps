@@ -1194,45 +1194,46 @@ components:
     # --- FileInput --------------------------------------------------------
     FileInput:
       type: object
+      required:
+        - name
+        - targetPath
       properties:
         name:
-          type: string
-          minLength: 1
+          $ref: '#/components/schemas/InputNameString'
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
           $ref: '#/components/schemas/InputModeEnum'
-        inPlace:
+        autoMountLocal:
           type: boolean
-          default: false
+          default: true
         sourceUrl:
           type: string
+          minLength: 1
         targetPath:
           type: string
+          minLength: 1
     # --- FileInputArray --------------------------------------------------------
     FileInputArray:
       type: object
       required:
         - name
+        - targetDir
       properties:
         name:
-          type: string
-          minLength: 1
+          $ref: '#/components/schemas/InputNameString'
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
           $ref: '#/components/schemas/InputModeEnum'
-        inPlace:
-          type: boolean
-          default: false
         sourceUrls:
           type: array
           items:
             type: string
-        targetPaths:
-          type: array
-          items:
-            type: string
+            minLength: 1
+        targetDir:
+          type: string
+          minLength: 1
     # --- ArgSpec --------------------------------------------------------------
     ArgSpec:
       type: object
@@ -1240,14 +1241,14 @@ components:
         - name
       properties:
         name:
-          type: string
-          minLength: 1
+          $ref: '#/components/schemas/InputNameString'
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
           $ref: '#/components/schemas/InputModeEnum'
         arg:
           type: string
+          minLength: 1
     # --- KeyValuePair -------------------------------------------------------
     KeyValuePair:
       type: object
@@ -1301,6 +1302,10 @@ components:
     ArgDescriptionString:
       type: string
       maxLength: 8096
+    InputNameNameString:
+      type: string
+      minLength: 1
+      maxLength: 80
     UserNameString:
       type: string
       minLength: 1
