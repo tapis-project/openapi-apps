@@ -1302,7 +1302,7 @@ components:
     ArgDescriptionString:
       type: string
       maxLength: 8096
-    InputNameNameString:
+    InputNameString:
       type: string
       minLength: 1
       maxLength: 80
