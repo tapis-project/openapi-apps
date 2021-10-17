@@ -1134,11 +1134,11 @@ components:
         fileInputs:
           type: array
           items:
-            $ref: '#/components/schemas/FileInput'
+            $ref: '#/components/schemas/AppFileInput'
         fileInputArrays:
           type: array
           items:
-            $ref: '#/components/schemas/FileInputArray'
+            $ref: '#/components/schemas/AppFileInputArray'
         nodeCount:
           type: integer
         coresPerNode:
@@ -1162,15 +1162,15 @@ components:
         appArgs:
           type: array
           items:
-            $ref: '#/components/schemas/ArgSpec'
+            $ref: '#/components/schemas/AppArgSpec'
         containerArgs:
           type: array
           items:
-            $ref: '#/components/schemas/ArgSpec'
+            $ref: '#/components/schemas/AppArgSpec'
         schedulerOptions:
           type: array
           items:
-            $ref: '#/components/schemas/ArgSpec'
+            $ref: '#/components/schemas/AppArgSpec'
         envVariables:
           type: array
           items:
@@ -1191,8 +1191,8 @@ components:
             includeLaunchFiles:
                 type: boolean
                 default: true
-    # --- FileInput --------------------------------------------------------
-    FileInput:
+    # --- AppFileInput --------------------------------------------------------
+    AppFileInput:
       type: object
       required:
         - name
@@ -1203,7 +1203,7 @@ components:
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
-          $ref: '#/components/schemas/InputModeEnum'
+          $ref: '#/components/schemas/FileInputModeEnum'
         autoMountLocal:
           type: boolean
           default: true
@@ -1213,8 +1213,8 @@ components:
         targetPath:
           type: string
           minLength: 1
-    # --- FileInputArray --------------------------------------------------------
-    FileInputArray:
+    # --- AppFileInputArray --------------------------------------------------------
+    AppFileInputArray:
       type: object
       required:
         - name
@@ -1225,7 +1225,7 @@ components:
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
-          $ref: '#/components/schemas/InputModeEnum'
+          $ref: '#/components/schemas/FileInputModeEnum'
         sourceUrls:
           type: array
           items:
@@ -1234,8 +1234,8 @@ components:
         targetDir:
           type: string
           minLength: 1
-    # --- ArgSpec --------------------------------------------------------------
-    ArgSpec:
+    # --- AppArgSpec --------------------------------------------------------------
+    AppArgSpec:
       type: object
       required:
         - name
@@ -1245,7 +1245,7 @@ components:
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
-          $ref: '#/components/schemas/InputModeEnum'
+          $ref: '#/components/schemas/AppInputModeEnum'
         arg:
           type: string
           minLength: 1
@@ -1617,10 +1617,18 @@ components:
         - EMAIL
         - QUEUE
         - ACTOR
-    InputModeEnum:
+    FileInputModeEnum:
       type: string
       enum:
         - REQUIRED
         - OPTIONAL
         - FIXED
       default: OPTIONAL
+    AppInputModeEnum:
+      type: string
+      enum:
+        - REQUIRED
+        - FIXED
+        - INCLUDE_ON_DEMAND
+        - INCLUDE_BY_DEFAULT
+      default: INCLUDE_ON_DEMAND
