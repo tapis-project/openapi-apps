@@ -1245,7 +1245,7 @@ components:
         description:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
-          $ref: '#/components/schemas/AppInputModeEnum'
+          $ref: '#/components/schemas/ArgInputModeEnum'
         arg:
           type: string
           minLength: 1
@@ -1624,7 +1624,7 @@ components:
         - OPTIONAL
         - FIXED
       default: OPTIONAL
-    AppInputModeEnum:
+    ArgInputModeEnum:
       type: string
       enum:
         - REQUIRED
