@@ -24,8 +24,12 @@ servers:
 security:
   - TapisJWT: []
 tags:
+  - name: General
+    description: General service health and readiness
   - name: Applications
-    description: manage applications
+    description: Manage Tapis application resources. Create, retrieve, update, etc.
+  - name: Permissions
+    description: Manage Tapis permissions for application resources. Grant, revoke and retrieve.
 
 # ------------------------------------------------------------------------------
 # --- Paths -------------------------------------------------------------------
