@@ -170,7 +170,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReqCreateApp'
+              $ref: '#/components/schemas/ReqPostApp'
       responses:
         '201':
           description: Application created.
@@ -1130,6 +1130,13 @@ components:
         archiveOnAppError:
           type: boolean
           default: true
+        isMpi:
+          type: boolean
+          default: false
+        mpiCmd:
+          type: string
+          minLength: 1
+          maxLength: 126
         parameterSet:
           $ref: '#/components/schemas/ParameterSet'
         fileInputs:
@@ -1331,7 +1338,7 @@ components:
     # -------------------------------------------------------------------------
     # --- Request objects -----------------------------------------------------
     # -------------------------------------------------------------------------
-    ReqCreateApp:
+    ReqPostApp:
       type: object
       required:
         - id
