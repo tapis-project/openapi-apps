@@ -1137,6 +1137,10 @@ components:
           type: string
           minLength: 1
           maxLength: 126
+        cmdPrefix:
+          type: string
+          minLength: 1
+          maxLength: 126
         parameterSet:
           $ref: '#/components/schemas/ParameterSet'
         fileInputs:
