@@ -831,6 +831,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/history':
+    get:
+      tags:
+        - Applications
+      summary: Retrieve history of changes
+      description: |
+        Retrieve history og changes for a given appId.
+      operationId: getHistory
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+      responses:
+        '200':
+          description: History successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespAppHistory'
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: App not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
 
   # --- Paths for /perms -------------------------------------------------------
   '/v3/apps/perms/{appId}/user/{userName}':
@@ -1015,45 +1054,6 @@ paths:
                 $ref: '#/components/schemas/RespBasic'
         '401':
           description: Not authorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RespBasic'
-        '500':
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RespBasic'
-  '/v3/apps/{appId}/history':
-    get:
-      tags:
-        - Apps
-      summary: Retrieve history of changes
-      description: |
-        Retrieve history og changes for a given appId.
-      operationId: getHistory
-      parameters:
-        - name: appId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/IdString'
-      responses:
-        '200':
-          description: History successful.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RespAppHistory'
-        '401':
-          description: Not authorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RespBasic'
-        '404':
-          description: App not found.
           content:
             application/json:
               schema:
