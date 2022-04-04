@@ -1717,19 +1717,19 @@ components:
         - INCLUDE_ON_DEMAND
         - INCLUDE_BY_DEFAULT
       default: INCLUDE_ON_DEMAND
-OperationTypeEnum:
-  type: string
-  enum:
-    - CREATE
-    - READ
-    - MODIFY
-    - EXECUTE
-    - DELETE
-    - UNDELETE
-    - HARD_DELETE
-    - CHANGE_OWNER
-    - ENABLE
-    - DISABLE
-    - GET_PERMS
-    - GRANT_PERMS
-    - REVOKE_PERMS
+    OperationTypeEnum:
+      type: string
+      enum:
+        - CREATE
+        - READ
+        - MODIFY
+        - EXECUTE
+        - DELETE
+        - UNDELETE
+        - HARD_DELETE
+        - CHANGE_OWNER
+        - ENABLE
+        - DISABLE
+        - GET_PERMS
+        - GRANT_PERMS
+        - REVOKE_PERMS
