@@ -420,6 +420,12 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: skipTapisAuthorization
+          in: query
+          description: Highly restricted. Only certain services may use sharing in place of Tapis authorization.
+          schema:
+            type: boolean
+            default: false
         - name: select
           in: query
           description: List of attributes to be included as part of the result item. For example select=id,version,owner
