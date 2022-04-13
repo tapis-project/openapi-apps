@@ -1384,13 +1384,17 @@ components:
       properties:
         appVersion:
           type: string
-        userTenant:
+        jwtTenant:
           type: string
-        userName:
+        jwtUser:
+          $ref: '#/components/schemas/UserNameString'
+        oboTenant:
+          type: string
+        oboUser:
           $ref: '#/components/schemas/UserNameString'
         operation:
           $ref: '#/components/schemas/OperationTypeEnum'
-        updJson:
+        description:
           type: string
         created:
           type: string
