@@ -837,6 +837,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/history':
+    get:
+      tags:
+        - Applications
+      summary: Retrieve history of changes
+      description: |
+        Retrieve history og changes for a given appId.
+      operationId: getHistory
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+      responses:
+        '200':
+          description: History successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespAppHistory'
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: App not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
 
   # --- Paths for /perms -------------------------------------------------------
   '/v3/apps/perms/{appId}/user/{userName}':
@@ -1345,6 +1384,26 @@ components:
       type: string
       minLength: 1
       maxLength: 128
+      # --- AppHistory ------------------------------------------------------------------
+    AppHistory:
+      type: object
+      properties:
+        appVersion:
+          type: string
+        jwtTenant:
+          type: string
+        jwtUser:
+          $ref: '#/components/schemas/UserNameString'
+        oboTenant:
+          type: string
+        oboUser:
+          $ref: '#/components/schemas/UserNameString'
+        operation:
+          $ref: '#/components/schemas/OperationTypeEnum'
+        description:
+          type: string
+        created:
+          type: string
     # -------------------------------------------------------------------------
     # --- Request objects -----------------------------------------------------
     # -------------------------------------------------------------------------
@@ -1609,6 +1668,22 @@ components:
               type: string
             totalCount:
               type: integer
+    RespAppHistory:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        version:
+          type: string
+        result:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/AppHistory'
+        metadata:
+          type: object
     # -------------------------------------------------------------------------
     # --- Enums ---------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -1652,3 +1727,19 @@ components:
         - INCLUDE_ON_DEMAND
         - INCLUDE_BY_DEFAULT
       default: INCLUDE_ON_DEMAND
+    OperationTypeEnum:
+      type: string
+      enum:
+        - CREATE
+        - READ
+        - MODIFY
+        - EXECUTE
+        - DELETE
+        - UNDELETE
+        - HARD_DELETE
+        - CHANGE_OWNER
+        - ENABLE
+        - DISABLE
+        - GET_PERMS
+        - GRANT_PERMS
+        - REVOKE_PERMS
