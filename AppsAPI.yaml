@@ -420,12 +420,11 @@ paths:
           schema:
             type: boolean
             default: false
-        - name: skipTapisAuthorization
+        - name: impersonationId
           in: query
-          description: Highly restricted. Only certain services may use sharing in place of Tapis authorization.
+          description: Highly restricted. Only certain services may impersonate a Tapis user.
           schema:
-            type: boolean
-            default: false
+            type: string
         - name: select
           in: query
           description: List of attributes to be included as part of the result item. For example select=id,version,owner
@@ -1053,7 +1052,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RespBasic'
         '400':
-          description: Input error. Invalid JSON.
+          description: Input error.
           content:
             application/json:
               schema:
