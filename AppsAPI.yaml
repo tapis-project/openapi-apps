@@ -1070,220 +1070,220 @@ paths:
               schema:
                 $ref: '#/components/schemas/RespBasic'
 
-# --- Paths for /share and /unshare -------------------------------------------------------
-'/v3/apps/share/{appId}':
-  get:
-    tags:
-      - Sharing
-    summary: Retrieve all sharing information for an app
-    description: |
-      Retrieve all sharing information for an app. This includes all users with whom the app
-      has been shared and whether or not the app has been made publicly available.
-    operationId: getShareInfo
-    parameters:
-      - name: appId
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/IdString'
-    responses:
-      '200':
-        description: Success.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespShareInfo'
-      '400':
-        description: Input error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '401':
-        description: Not authorized.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '404':
-        description: App not found.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '500':
-        description: Server error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-  post:
-    tags:
-      - Sharing
-    summary: Share an app with one or more users.
-    description: |
-      Create or update sharing information for an app. The app will be shared with the list of users
-      provided in the request body. Requester must be owner of the app.
-    operationId: shareApp
-    parameters:
-      - name: appId
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/IdString'
-    requestBody:
-      required: true
-      description: A JSON object specifying updated sharing information.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReqShareUpdate'
-    responses:
-      '200':
-        description: Sharing information updated.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '400':
-        description: Input error. Invalid JSON.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '401':
-        description: Not authorized.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '500':
-        description: Server error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
+ # --- Paths for /share and /unshare -------------------------------------------------------
+ '/v3/apps/share/{appId}':
+   get:
+     tags:
+       - Sharing
+     summary: Retrieve all sharing information for an app
+     description: |
+       Retrieve all sharing information for an app. This includes all users with whom the app
+       has been shared and whether or not the app has been made publicly available.
+     operationId: getShareInfo
+     parameters:
+       - name: appId
+         in: path
+         required: true
+         schema:
+           $ref: '#/components/schemas/IdString'
+     responses:
+       '200':
+         description: Success.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespShareInfo'
+       '400':
+         description: Input error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '401':
+         description: Not authorized.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '404':
+         description: App not found.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '500':
+         description: Server error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+   post:
+     tags:
+       - Sharing
+     summary: Share an app with one or more users.
+     description: |
+       Create or update sharing information for an app. The app will be shared with the list of users
+       provided in the request body. Requester must be owner of the app.
+     operationId: shareApp
+     parameters:
+       - name: appId
+         in: path
+         required: true
+         schema:
+           $ref: '#/components/schemas/IdString'
+     requestBody:
+       required: true
+       description: A JSON object specifying updated sharing information.
+       content:
+         application/json:
+           schema:
+             $ref: '#/components/schemas/ReqShareUpdate'
+     responses:
+       '200':
+         description: Sharing information updated.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '400':
+         description: Input error. Invalid JSON.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '401':
+         description: Not authorized.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '500':
+         description: Server error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+ '/v3/apps/share/{appId}/public':
+   post:
+     tags:
+       - Sharing
+     summary: Share an app publicly with all users in the tenant.
+     description: |
+       Share an app with all users in the tenant. Requester must be owner of the app.
+     operationId: shareAppPublic
+     parameters:
+       - name: appId
+         in: path
+         required: true
+         schema:
+           $ref: '#/components/schemas/IdString'
+       - name: readOnly
+         in: query
+         description: By default sharing includes READ+EXECUTE
+         schema:
+           type: boolean
+           default: false
+     responses:
+       '200':
+         description: App shared publicly.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '401':
+         description: Not authorized.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '500':
+         description: Server error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
 
-'/v3/apps/share/{appId}/public':
-  post:
-    tags:
-      - Sharing
-    summary: Share an app publicly with all users in the tenant.
-    description: |
-      Share an app with all users in the tenant. Requester must be owner of the app.
-    operationId: shareAppPublic
-    parameters:
-      - name: appId
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/IdString'
-      - name: readOnly
-        in: query
-        description: By default sharing includes READ+EXECUTE
-        schema:
-          type: boolean
-          default: false
-    responses:
-      '200':
-        description: App shared publicly.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '401':
-        description: Not authorized.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '500':
-        description: Server error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-'/v3/apps/unshare/{appId}':
-  post:
-    tags:
-      - Sharing
-    summary: Unshare an app with one or more users.
-    description: |
-      Create or update sharing information for an app. The app will be unshared with the list of users
-      provided in the request body. Requester must be owner of the app.
-    operationId: unShareApp
-    parameters:
-      - name: appId
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/IdString'
-    requestBody:
-      required: true
-      description: A JSON object specifying updated sharing information.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReqShareUpdate'
-    responses:
-      '200':
-        description: Sharing information updated.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '400':
-        description: Input error. Invalid JSON.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '401':
-        description: Not authorized.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '500':
-        description: Server error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
+ '/v3/apps/unshare/{appId}':
+   post:
+     tags:
+       - Sharing
+     summary: Unshare an app with one or more users.
+     description: |
+       Create or update sharing information for an app. The app will be unshared with the list of users
+       provided in the request body. Requester must be owner of the app.
+     operationId: unShareApp
+     parameters:
+       - name: appId
+         in: path
+         required: true
+         schema:
+           $ref: '#/components/schemas/IdString'
+     requestBody:
+       required: true
+       description: A JSON object specifying updated sharing information.
+       content:
+         application/json:
+           schema:
+             $ref: '#/components/schemas/ReqShareUpdate'
+     responses:
+       '200':
+         description: Sharing information updated.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '400':
+         description: Input error. Invalid JSON.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '401':
+         description: Not authorized.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '500':
+         description: Server error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
 
-'/v3/apps/unshare/{appId}/public':
-  post:
-    tags:
-      - Sharing
-    summary: Unshare a public app with all users in the tenant.
-    description: |
-      Remove public sharing for an app. Requester must be owner of the app.
-    operationId: unShareAppPublic
-    parameters:
-      - name: appId
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/IdString'
-    responses:
-      '200':
-        description: App public access removed.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '401':
-        description: Not authorized.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
-      '500':
-        description: Server error.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RespBasic'
+ '/v3/apps/unshare/{appId}/public':
+   post:
+     tags:
+       - Sharing
+     summary: Unshare a public app with all users in the tenant.
+     description: |
+       Remove public sharing for an app. Requester must be owner of the app.
+     operationId: unShareAppPublic
+     parameters:
+       - name: appId
+         in: path
+         required: true
+         schema:
+           $ref: '#/components/schemas/IdString'
+     responses:
+        '200':
+          description: App public access removed.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '401':
+         description: Not authorized.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
+       '500':
+         description: Server error.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/RespBasic'
 
 # ------------------------------------------------------------------------------
 # --- Components ---------------------------------------------------------------
