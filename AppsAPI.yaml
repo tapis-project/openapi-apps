@@ -1206,7 +1206,7 @@ components:
         subscriptions:
           type: array
           items:
-            $ref: '#/components/schemas/NotificationSubscription'
+            $ref: '#/components/schemas/NotifSubscription'
         tags:
           type: array
           items:
@@ -1317,31 +1317,52 @@ components:
         value:
           type: string
           default: ""
-    # --- NotificationSubscription -------------------------------------------
-    NotificationSubscription:
+    # --- NotifSubscription -------------------------------------------
+    NotifSubscription:
       type: object
       required:
-        - notificationMechanisms
+        - name
+        - deliveryTargets
       properties:
-        filter:
+        name:
+          $ref: '#/components/schemas/IdString'
+        description:
+          $ref: '#/components/schemas/AppJobDescriptionString'
+        owner:
+          $ref: '#/components/schemas/UserNameApiDefaultString'
+        enabled:
+          type: boolean
+          default: true
+        typeFilter:
           type: string
-          minLength: 1
-        notificationMechanisms:
+        subjectFilter:
+          type: string
+        deliveryTargets:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/NotificationMechanism'
-    # --- NotificationMechanism -------------------------------------------
-    NotificationMechanism:
+            $ref: '#/components/schemas/NotifDeliveryTarget'
+        ttlMinutes:
+          type: integer
+        uuid:
+          type: string
+          format: uuid
+        expiry:
+          type: string
+        created:
+          type: string
+        updated:
+          type: string
+    # --- NotifDeliveryTarget ------------------------------------------------------------
+    NotifDeliveryTarget:
       type: object
       required:
-        - mechanism
+        - deliveryMethod
+        - deliveryAddress
       properties:
-        mechanism:
-          $ref: '#/components/schemas/NotificationMechanismEnum'
-        webhookURL:
-          type: string
-        emailAddress:
+        deliveryMethod:
+          $ref: '#/components/schemas/NotifDeliveryMethod'
+        deliveryAddress:
           type: string
     # --- String types with constraints ------------------------------------
     IdString:
@@ -1704,13 +1725,11 @@ components:
         - NONE
         - SINGULARITY_START
         - SINGULARITY_RUN
-    NotificationMechanismEnum:
+    NotifDeliveryMethod:
       type: string
       enum:
         - WEBHOOK
         - EMAIL
-        - QUEUE
-        - ACTOR
     FileInputModeEnum:
       type: string
       enum:
