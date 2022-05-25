@@ -1338,18 +1338,18 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/DeliveryTarget'
+            $ref: '#/components/schemas/NotifDeliveryTarget'
         ttlMinutes:
           type: integer
-    # --- DeliveryTarget ------------------------------------------------------------
-    DeliveryTarget:
+    # --- NotifDeliveryTarget ------------------------------------------------------------
+    NotifDeliveryTarget:
       type: object
       required:
         - deliveryMethod
         - deliveryAddress
       properties:
         deliveryMethod:
-          $ref: '#/components/schemas/DeliveryMethod'
+          $ref: '#/components/schemas/NotifDeliveryMethod'
         deliveryAddress:
           type: string
     # --- String types with constraints ------------------------------------
@@ -1713,7 +1713,7 @@ components:
         - NONE
         - SINGULARITY_START
         - SINGULARITY_RUN
-    DeliveryMethod:
+    NotifDeliveryMethod:
       type: string
       enum:
         - WEBHOOK
