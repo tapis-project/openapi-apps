@@ -1331,10 +1331,9 @@ components:
           default: true
         jobEventCategoryFilter:
           $ref: '#/components/schemas/JobEventCategoryFilter'
-        subjectFilter:
-          type: string
         ttlMinutes:
           type: integer
+          default: 10080
         deliveryTargets:
           type: array
           minItems: 1
