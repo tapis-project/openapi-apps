@@ -41,7 +41,7 @@ paths:
     get:
       tags:
         - General
-      description: Health check.
+      description: Health check. Lightweight non-authenticated check that service is alive.
       operationId: healthCheck
       responses:
         '200':
@@ -56,7 +56,7 @@ paths:
     get:
       tags:
         - General
-      description: Ready check.
+      description: Ready check. Non-authenticated check that service is ready to do work.
       operationId: readyCheck
       responses:
         '200':
@@ -66,13 +66,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/RespBasic'
         '503':
-          description: Service unavailable.
+          description: Service not ready.
 
   '/v3/apps':
     get:
       tags:
         - Applications
-      summary: Retrieve applications
       description: Retrieve list of applications. Use search and select query parameters to limit results.
       operationId: getApps
       parameters:
@@ -148,7 +147,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Create a new version of an application
       description: |
         Create an application using a request body. App id+version must be unique within tenant and can be composed of
         alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
@@ -206,7 +204,6 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve list of applications matching search conditions specified as query parameters
       description: Retrieve details for applications. Use query parameters to specify search conditions. For example ?owner.eq=jdoe&enabled.eq=false
       operationId: searchAppsQueryParameters
       parameters:
@@ -271,7 +268,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Retrieve applications matching search conditions
       description: Retrieve details for applications. Use request body to specify SQL-like search conditions.
       operationId: searchAppsRequestBody
       parameters:
@@ -344,7 +340,6 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve latest version of an application
       description: Retrieve latest version of an application.
       operationId: getAppLatestVersion
       parameters:
@@ -400,7 +395,6 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve details for specific version of an application
       description: Retrieve information for an application given the application Id and version.
       operationId: getApp
       parameters:
@@ -465,7 +459,6 @@ paths:
     patch:
       tags:
         - Applications
-      summary: Update selected attributes of an existing version of an application
       description: |
         Update selected attributes of an existing version of an application.
         Request body may only contain updatable attributes. Application must exist.
@@ -530,7 +523,6 @@ paths:
     put:
       tags:
         - Applications
-      summary: Update all updatable attributes of an application
       description: |
         Update all updatable attributes of an application using a request body identical to POST. Application must exist.
 
@@ -607,7 +599,6 @@ paths:
     get:
       tags:
         - Applications
-      summary: Check if application is currently enabled
       description: Check if an application is currently enabled, i.e. available for use.
       operationId: isEnabled
       parameters:
@@ -645,7 +636,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application availabe for use
       description: Mark an application available for use. Applies to all versions.
       operationId: enableApp
       parameters:
@@ -683,7 +673,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application unavailabe for use
       description: Mark an application unavailable for use. Applies to all versions.
       operationId: disableApp
       parameters:
@@ -721,7 +710,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application as deleted
       description: Mark an application as deleted. Application will not appear in queries unless explicitly requested.
       operationId: deleteApp
       parameters:
@@ -759,7 +747,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Mark an application as not deleted
       description: Mark an application as not deleted. Application will appear in queries.
       operationId: undeleteApp
       parameters:
@@ -797,7 +784,6 @@ paths:
     post:
       tags:
         - Applications
-      summary: Change application owner
       description: Change owner of an application. Applies to all versions.
       operationId: changeAppOwner
       parameters:
@@ -840,9 +826,8 @@ paths:
     get:
       tags:
         - Applications
-      summary: Retrieve history of changes
       description: |
-        Retrieve history og changes for a given appId.
+        Retrieve history of changes for a given appId.
       operationId: getHistory
       parameters:
         - name: appId
@@ -881,7 +866,6 @@ paths:
     get:
       tags:
         - Permissions
-      summary: Retrieve application user permissions
       description: Retrieve all application related permissions for a given application and user.
       operationId: getUserPerms
       parameters:
@@ -929,7 +913,6 @@ paths:
     post:
       tags:
         - Permissions
-      summary: Grant application user permissions
       description: Create permissions in the Security Kernel for a user. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: grantUserPerms
       parameters:
@@ -980,7 +963,6 @@ paths:
     post:
       tags:
         - Permissions
-      summary: Revoke application user permissions
       description: Remove permissions from the Security Kernel for a user. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: revokeUserPerms
       parameters:
@@ -1025,7 +1007,6 @@ paths:
     delete:
       tags:
         - Permissions
-      summary: Revoke application user permission
       description: Remove user permission from the Security Kernel. Requester must be owner. Permissions are READ, MODIFY, EXECUTE.
       operationId: revokeUserPerm
       parameters:
@@ -1416,7 +1397,7 @@ components:
         subscriptions:
           type: array
           items:
-            $ref: '#/components/schemas/NotificationSubscription'
+            $ref: '#/components/schemas/ReqSubscribe'
         tags:
           type: array
           items:
@@ -1527,31 +1508,37 @@ components:
         value:
           type: string
           default: ""
-    # --- NotificationSubscription -------------------------------------------
-    NotificationSubscription:
+    # --- ReqSubscribe -------------------------------------------
+    ReqSubscribe:
       type: object
       required:
-        - notificationMechanisms
+        - jobEventCategoryFilter
+        - deliveryTargets
       properties:
-        filter:
-          type: string
-          minLength: 1
-        notificationMechanisms:
+        description:
+          $ref: '#/components/schemas/AppJobDescriptionString'
+        enabled:
+          type: boolean
+          default: true
+        jobEventCategoryFilter:
+          $ref: '#/components/schemas/JobEventCategoryFilter'
+        ttlMinutes:
+          type: integer
+        deliveryTargets:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/NotificationMechanism'
-    # --- NotificationMechanism -------------------------------------------
-    NotificationMechanism:
+            $ref: '#/components/schemas/NotifDeliveryTarget'
+    # --- NotifDeliveryTarget ------------------------------------------------------------
+    NotifDeliveryTarget:
       type: object
       required:
-        - mechanism
+        - deliveryMethod
+        - deliveryAddress
       properties:
-        mechanism:
-          $ref: '#/components/schemas/NotificationMechanismEnum'
-        webhookURL:
-          type: string
-        emailAddress:
+        deliveryMethod:
+          $ref: '#/components/schemas/NotifDeliveryMethod'
+        deliveryAddress:
           type: string
     # --- String types with constraints ------------------------------------
     IdString:
@@ -1950,13 +1937,20 @@ components:
         - NONE
         - SINGULARITY_START
         - SINGULARITY_RUN
-    NotificationMechanismEnum:
+    NotifDeliveryMethod:
       type: string
       enum:
         - WEBHOOK
         - EMAIL
-        - QUEUE
-        - ACTOR
+    JobEventCategoryFilter:
+      type: string
+      enum:
+        - ALL
+        - JOB_NEW_STATUS
+        - JOB_INPUT_TRANSACTION_ID
+        - JOB_ARCHIVE_TRANSACTION_ID
+        - JOB_ERROR_MESSAGE
+        - JOB_SUBSCRIPTION
     FileInputModeEnum:
       type: string
       enum:
