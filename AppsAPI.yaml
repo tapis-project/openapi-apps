@@ -31,7 +31,7 @@ tags:
   - name: Permissions
     description: Manage Tapis permissions for application resources. Grant, revoke and retrieve.
   - name: Sharing
-    description: Manage Tapis sharing for application resources. Share, unshare, make public and get details.
+    description: Manage Tapis sharing for application resources. Share, unshare, make public.
 
 # ------------------------------------------------------------------------------
 # --- Paths -------------------------------------------------------------------
@@ -1233,7 +1233,7 @@ paths:
     post:
       tags:
         - Sharing
-      summary: Unshare a public app with all users in the tenant.
+      summary: Remove public access for an app.
       description: |
         Remove public sharing for an app. Requester must be owner of the app.
       operationId: unShareAppPublic
@@ -1277,7 +1277,7 @@ components:
     # ------------------------------------------------------------------------------
     # --- Model objects ------------------------------------------------------------
     # ------------------------------------------------------------------------------
-    # --- TapisApp ------------------------------------------------------------------
+    # --- TapisApp -----------------------------------------------------------------
     TapisApp:
       type: object
       properties:
