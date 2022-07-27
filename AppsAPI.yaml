@@ -109,7 +109,7 @@ paths:
             default: false
         - name: select
           in: query
-          description: List of attributes to be included as part of each result item. For example select=id,version,owner
+          description: List of attributes to be included as part of each result item. Keywords *allAttributes* and *summaryAttributes* are supported. For example select=id,version,owner
           schema:
             type: string
             default: 'summaryAttributes'
@@ -236,7 +236,7 @@ paths:
             default: false
         - name: select
           in: query
-          description: List of attributes to be included as part of each result item. For example select=id,version,owner
+          description: List of attributes to be included as part of each result item. Keywords *allAttributes* and *summaryAttributes* are supported. For example select=id,version,owner
           schema:
             type: string
             default: 'summaryAttributes'
@@ -300,7 +300,7 @@ paths:
             default: false
         - name: select
           in: query
-          description: List of attributes to be included as part of each result item. For example select=id,version,owner
+          description: List of attributes to be included as part of each result item. Keywords *allAttributes* and *summaryAttributes* are supported. For example select=id,version,owner
           schema:
             type: string
             default: 'summaryAttributes'
@@ -340,7 +340,9 @@ paths:
     get:
       tags:
         - Applications
-      description: Retrieve latest version of an application.
+      description: |
+        Retrieve latest version of an application. In the result the attribute *sharedAppCtx* indicates if the
+        application is available to the user because it has been shared with the user by the application owner.
       operationId: getAppLatestVersion
       parameters:
         - name: appId
@@ -356,7 +358,7 @@ paths:
             default: false
         - name: select
           in: query
-          description: List of attributes to be included as part of the result item. For example select=id,version,owner
+          description: List of attributes to be included as part of the result item. Keywords *allAttributes* and *summaryAttributes* are supported. For example select=id,version,owner
           schema:
             type: string
             default: 'allAttributes'
@@ -395,7 +397,10 @@ paths:
     get:
       tags:
         - Applications
-      description: Retrieve information for an application given the application Id and version.
+      description: |
+        Retrieve information for an application given the application Id and version.
+        In the result the attribute *sharedAppCtx* indicates if the application is available to the user because it
+        has been shared with the user by the application owner.
       operationId: getApp
       parameters:
         - name: appId
@@ -421,7 +426,7 @@ paths:
             type: string
         - name: select
           in: query
-          description: List of attributes to be included as part of the result item. For example select=id,version,owner
+          description: List of attributes to be included as part of the result item. Keywords *allAttributes* and *summaryAttributes* are supported. For example select=id,version,owner
           schema:
             type: string
             default: 'allAttributes'
@@ -1065,7 +1070,7 @@ components:
     # ------------------------------------------------------------------------------
     # --- Model objects ------------------------------------------------------------
     # ------------------------------------------------------------------------------
-    # --- TapisApp ------------------------------------------------------------------
+    # --- TapisApp -----------------------------------------------------------------
     TapisApp:
       type: object
       properties:
@@ -1109,6 +1114,9 @@ components:
             type: string
         notes:
           type: object
+        sharedAppCtx:
+          type: boolean
+          default: false
         uuid:
           type: string
           format: uuid
@@ -1370,7 +1378,7 @@ components:
       type: string
       minLength: 1
       maxLength: 128
-      # --- AppHistory ------------------------------------------------------------------
+    # --- AppHistory ------------------------------------------------------------------
     AppHistory:
       type: object
       properties:
