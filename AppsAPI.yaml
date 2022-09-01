@@ -1152,7 +1152,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RespBasic'
 
-  '/v3/apps/share/{appId}/public':
+  '/v3/apps/share_public/{appId}':
     post:
       tags:
         - Sharing
@@ -1234,7 +1234,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RespBasic'
 
-  '/v3/apps/unshare/{appId}/public':
+  '/v3/apps/unshare_public/{appId}':
     post:
       tags:
         - Sharing
