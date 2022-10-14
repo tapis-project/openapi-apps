@@ -1307,7 +1307,7 @@ components:
         version:
           $ref: '#/components/schemas/AppVersionString'
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         owner:
           $ref: '#/components/schemas/UserNameApiDefaultString'
         enabled:
@@ -1362,7 +1362,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         dynamicExecSystem:
           type: boolean
           default: false
@@ -1520,6 +1520,8 @@ components:
         arg:
           type: string
           minLength: 1
+        notes:
+          type: object
     # --- KeyValuePair -------------------------------------------------------
     KeyValuePair:
       type: object
@@ -1532,6 +1534,8 @@ components:
         value:
           type: string
           default: ""
+        description:
+          $ref: '#/components/schemas/ArgDescriptionString'
     # --- ReqSubscribe -------------------------------------------
     ReqSubscribe:
       type: object
@@ -1540,7 +1544,7 @@ components:
         - deliveryTargets
       properties:
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         enabled:
           type: boolean
           default: true
@@ -1573,7 +1577,7 @@ components:
       type: string
       minLength: 1
       maxLength: 64
-    AppJobDescriptionString:
+    DescriptionString:
       type: string
       maxLength: 2048
     ArgDescriptionString:
@@ -1652,7 +1656,7 @@ components:
         version:
           $ref: '#/components/schemas/AppVersionString'
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         owner:
           $ref: '#/components/schemas/UserNameApiDefaultString'
         enabled:
@@ -1689,7 +1693,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -1721,7 +1725,7 @@ components:
       type: object
       properties:
         description:
-          $ref: '#/components/schemas/AppJobDescriptionString'
+          $ref: '#/components/schemas/DescriptionString'
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
