@@ -436,6 +436,9 @@ paths:
         Retrieve information for an application given the application Id and version.
         In the result the attribute *sharedAppCtx* indicates if the application is available to the user because it
         has been shared with the user by the application owner.
+        
+        Certain services may use the query parameter *impersonationId* to be used in place of the requesting
+        Tapis user. Tapis will use this user Id when performing authorization.
       operationId: getApp
       parameters:
         - name: appId
@@ -456,7 +459,7 @@ paths:
             default: false
         - name: impersonationId
           in: query
-          description: Highly restricted. Only certain services may impersonate a Tapis user.
+          description: Restricted. Only certain services may impersonate a Tapis user.
           schema:
             type: string
         - name: select
