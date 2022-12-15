@@ -95,6 +95,9 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
+          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
+          - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
       operationId: getApps
       parameters:
@@ -235,6 +238,9 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
+          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
+          - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
       operationId: searchAppsQueryParameters
       parameters:
@@ -305,6 +311,9 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
+          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
+          - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
       operationId: searchAppsRequestBody
       parameters:
@@ -1987,6 +1996,9 @@ components:
       enum:
         - OWNED
         - SHARED_PUBLIC
+        - SHARED_DIRECT
+        - READ_PERM
+        - MINE
         - ALL
     JobTypeEnum:
       type: string
