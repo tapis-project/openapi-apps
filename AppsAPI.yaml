@@ -94,7 +94,7 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
-          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *SHARED_DIRECT* Include only items shared directly with requester. Exclude publicly shared items.
           - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
           - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
@@ -237,7 +237,7 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
-          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *SHARED_DIRECT* Include only items shared directly with requester. Exclude publicly shared items.
           - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
           - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
@@ -310,7 +310,7 @@ paths:
 
           - *OWNED* Include only items owned by requester (Default)
           - *SHARED_PUBLIC* Include only items shared publicly
-          - *SHARED_DIRECTLY* Include only items shared directly with requester. Exclude publicly shared items.
+          - *SHARED_DIRECT* Include only items shared directly with requester. Exclude publicly shared items.
           - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
           - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
