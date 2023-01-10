@@ -44,9 +44,8 @@ tags:
 
       Please note that sharing an application gives a user certain implicit access to resources in the context of running
       a job. For example, if the application has defined a specific execution system id then while the job is running the
-      user who has been granted access to the application via sharing will also have the applications owner's
-      authorizations when accessing the system and paths on the system. Note that the application owner's authorizations
-      supplement the user's authorizations, they do not replace them.
+      user who has been granted access to the application via sharing will also have implicit access to the system and
+      through the Files service certain paths on the system.
 
 # ------------------------------------------------------------------------------
 # --- Paths -------------------------------------------------------------------
@@ -387,8 +386,7 @@ paths:
         - Applications
       description: |
         Retrieve latest version of an application. In the result the attribute *sharedAppCtx* indicates if the
-        application is available to the user because it has been shared with the user. The value of *sharedAppCtx*
-        will be the grantor, the Tapis user who shared the application.
+        application is available to the user because it has been shared with the user by the application owner.
       operationId: getAppLatestVersion
       parameters:
         - name: appId
@@ -445,8 +443,9 @@ paths:
         - Applications
       description: |
         Retrieve information for an application given the application Id and version.
-        In the result the attribute *sharedAppCtx* indicates if the application is available to the user because it has
-        been shared with the user. The value of *sharedAppCtx* will be the grantor, the Tapis user who shared the application.
+        In the result the attribute *sharedAppCtx* indicates if the application is available to the user because it
+        has been shared with the user by the application owner.
+        
         Certain services may use the query parameter *impersonationId* to be used in place of the requesting
         Tapis user. Tapis will use this user Id when performing authorization.
       operationId: getApp
@@ -1385,7 +1384,8 @@ components:
         notes:
           type: object
         sharedAppCtx:
-          $ref: '#/components/schemas/UserNameString'
+          type: boolean
+          default: false
         uuid:
           type: string
           format: uuid
