@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Tapis Applications API
   description: The Tapis Applications API provides for management of Tapis applications including permissions.
-  version: '1.3.3'
+  version: '1.3.4'
   termsOfService: "https://tapis-project.org"
   contact:
     name: "Applications API - CICSupport"
@@ -1590,6 +1590,10 @@ components:
           default: ""
         description:
           $ref: '#/components/schemas/DescriptionString'
+        inputMode:
+          $ref: '#/components/schemas/KeyValueInputModeEnum'
+        notes:
+          type: object
     # --- ReqSubscribe -------------------------------------------
     ReqSubscribe:
       type: object
@@ -2095,6 +2099,14 @@ components:
         - INCLUDE_ON_DEMAND
         - INCLUDE_BY_DEFAULT
       default: INCLUDE_ON_DEMAND
+    KeyValueInputModeEnum:
+      type: string
+      enum:
+        - REQUIRED
+        - FIXED
+        - INCLUDE_ON_DEMAND
+        - INCLUDE_BY_DEFAULT
+      default: INCLUDE_BY_DEFAULT
     OperationTypeEnum:
       type: string
       enum:
