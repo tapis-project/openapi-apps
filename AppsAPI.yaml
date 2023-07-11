@@ -174,7 +174,7 @@ paths:
         - Applications
       description: |
         Create an application using a request body. App id+version must be unique within tenant and can be composed of
-        alphanumeric characters and the following special characters [-._~]. Id must begin with an alphabetic character
+        alphanumeric characters and the following special characters [-._~]. Id must begin with an alphanumeric character
         and can be no more than 80 characters in length.
 
         Note that certain attributes (such as tenant) are allowed but ignored so that the JSON result returned by a GET
