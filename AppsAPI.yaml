@@ -1368,6 +1368,10 @@ components:
           default: true
         isPublic:
           type: boolean
+        sharedWithUsers:
+          type: array
+          items:
+            type: string
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
