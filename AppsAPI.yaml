@@ -1528,10 +1528,8 @@ components:
           properties:
             stdoutFilename:
               type: string
-              minLength: 1
             stderrFilename:
               type: string
-              minLength: 1
     # --- AppFileInput --------------------------------------------------------
     AppFileInput:
       type: object
