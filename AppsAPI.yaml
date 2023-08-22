@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Tapis Applications API
   description: The Tapis Applications API provides for management of Tapis applications including permissions.
-  version: '1.4.0'
+  version: '1.4.1'
   termsOfService: "https://tapis-project.org"
   contact:
     name: "Applications API - CICSupport"
@@ -1368,6 +1368,10 @@ components:
           default: true
         isPublic:
           type: boolean
+        sharedWithUsers:
+          type: array
+          items:
+            type: string
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -1516,6 +1520,16 @@ components:
             includeLaunchFiles:
                 type: boolean
                 default: true
+        logConfig:
+          type: object
+          required:
+            - stdoutFilename
+            - stderrFilename
+          properties:
+            stdoutFilename:
+              type: string
+            stderrFilename:
+              type: string
     # --- AppFileInput --------------------------------------------------------
     AppFileInput:
       type: object
@@ -1532,6 +1546,8 @@ components:
         autoMountLocal:
           type: boolean
           default: true
+        notes:
+          type: object
         sourceUrl:
           type: string
           minLength: 1
@@ -1551,6 +1567,8 @@ components:
           $ref: '#/components/schemas/ArgDescriptionString'
         inputMode:
           $ref: '#/components/schemas/FileInputModeEnum'
+        notes:
+          type: object
         sourceUrls:
           type: array
           items:
