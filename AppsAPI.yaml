@@ -789,6 +789,11 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
       responses:
         '200':
           description: Application locked.
@@ -828,6 +833,11 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
       responses:
         '200':
           description: Application unlocked.
