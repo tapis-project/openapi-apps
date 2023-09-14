@@ -531,8 +531,9 @@ paths:
           - id
           - owner
           - enabled
+          - locked
 
-        Note that the attributes owner and enabled may be modified using other endpoints.
+        Note that the attributes owner, enabled and locked may be modified using other endpoints.
       operationId: patchApp
       parameters:
         - name: appId
@@ -607,8 +608,9 @@ paths:
           - version
           - owner
           - enabled
+          - locked
 
-        Note that the attributes owner and enabled may be modified using other endpoints.
+        Note that the attributes owner, enabled and locked may be modified using other endpoints.
       operationId: putApp
       parameters:
         - name: appId
@@ -751,6 +753,94 @@ paths:
       responses:
         '200':
           description: Application disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
+        '403':
+          description: Permission denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/{appVersion}/lock':
+    post:
+      tags:
+        - Applications
+      description: |
+        Lock a version of an application to prevent updates via PUT or PATCH.
+        Requester must be owner of the app or a tenant administrator.
+      operationId: lockApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
+      responses:
+        '200':
+          description: Application locked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
+        '403':
+          description: Permission denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/{appVersion}/unlock':
+    post:
+      tags:
+        - Applications
+      description: |
+        Unlock a version of an application to allow updates via PUT and PATCH.
+        Requester must be owner of the app or a tenant administrator.
+      operationId: unlockApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
+      responses:
+        '200':
+          description: Application unlocked.
           content:
             application/json:
               schema:
@@ -1366,6 +1456,9 @@ components:
         enabled:
           type: boolean
           default: true
+        locked:
+          type: boolean
+          default: false
         isPublic:
           type: boolean
         sharedWithUsers:
@@ -1743,6 +1836,9 @@ components:
         enabled:
           type: boolean
           default: true
+        locked:
+          type: boolean
+          default: false
         runtime:
           $ref: '#/components/schemas/RuntimeEnum'
         runtimeVersion:
@@ -2142,6 +2238,8 @@ components:
         - CHANGE_OWNER
         - ENABLE
         - DISABLE
+        - LOCK
+        - UNLOCK
         - GET_PERMS
         - GRANT_PERMS
         - REVOKE_PERMS
