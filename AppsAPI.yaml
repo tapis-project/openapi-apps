@@ -2180,6 +2180,7 @@ components:
       enum:
         - SINGULARITY
         - DOCKER
+        - ZIP
     # NOTE: RuntimeOption starts with NONE due to a bug in client code generation.
     #       Without an initial entry the prefix SINGULARITY_ gets stripped off the other 2 entries.
     RuntimeOptionEnum:
