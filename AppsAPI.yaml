@@ -2185,7 +2185,6 @@ components:
         - NONE
         - SINGULARITY_START
         - SINGULARITY_RUN
-        - ZIP_SAVE
     NotifDeliveryMethod:
       type: string
       enum:
