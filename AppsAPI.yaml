@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Tapis Applications API
   description: The Tapis Applications API provides for management of Tapis applications including permissions.
-  version: '1.6.0'
+  version: '1.6.1'
   termsOfService: "https://tapis-project.org"
   contact:
     name: "Applications API - CICSupport"
@@ -705,6 +705,7 @@ paths:
         - Applications
       description: |
         Mark an application available for use. Applies to all versions.
+        Requester must be owner of the app or a tenant administrator.
       operationId: enableApp
       parameters:
         - name: appId
@@ -743,6 +744,7 @@ paths:
         - Applications
       description: |
         Mark an application unavailable for use. Applies to all versions.
+        Requester must be owner of the app or a tenant administrator.
       operationId: disableApp
       parameters:
         - name: appId
@@ -750,6 +752,94 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/IdString'
+      responses:
+        '200':
+          description: Application disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
+        '403':
+          description: Permission denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/{appVersion}/enable':
+    post:
+      tags:
+        - Applications
+      description: |
+        Mark a specific version of an application available for use.
+        Requester must be owner of the app or a tenant administrator.
+      operationId: enableAppVersion
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
+      responses:
+        '200':
+          description: Application version enabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespChangeCount'
+        '403':
+          description: Permission denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '404':
+          description: Application not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespBasic'
+  '/v3/apps/{appId}/{appVersion}/disable':
+    post:
+      tags:
+        - Applications
+      description: |
+        Mark a specific version of an application unavailable for use.
+        Requester must be owner of the app or a tenant administrator.
+      operationId: disableAppVersion
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/IdString'
+        - name: appVersion
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
       responses:
         '200':
           description: Application disabled.
@@ -1456,6 +1546,9 @@ components:
         enabled:
           type: boolean
           default: true
+        versionEnabled:
+          type: boolean
+          default: true
         locked:
           type: boolean
           default: false
@@ -1830,6 +1923,9 @@ components:
         owner:
           $ref: '#/components/schemas/UserNameApiDefaultString'
         enabled:
+          type: boolean
+          default: true
+        versionEnabled:
           type: boolean
           default: true
         locked:
