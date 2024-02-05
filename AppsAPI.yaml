@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Tapis Applications API
   description: The Tapis Applications API provides for management of Tapis applications including permissions.
-  version: '1.6.0'
+  version: '1.6.1'
   termsOfService: "https://tapis-project.org"
   contact:
     name: "Applications API - CICSupport"
@@ -1530,6 +1530,10 @@ components:
         execSystemInputDir:
           $ref: '#/components/schemas/DirString'
         execSystemOutputDir:
+          $ref: '#/components/schemas/DirString'
+        dtnSystemInputDir:
+          $ref: '#/components/schemas/DirString'
+        dtnSystemOutputDir:
           $ref: '#/components/schemas/DirString'
         execSystemLogicalQueue:
           $ref: '#/components/schemas/QueueNameString'
