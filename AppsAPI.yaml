@@ -666,7 +666,9 @@ paths:
       tags:
         - Applications
       description: |
-        Check if an application is currently enabled, i.e. available for use.
+        Check if an application is currently enabled, i.e. available for use. If the query parameter *version*
+        is specified then both the top level attribute *enabled* and the version specific attribute *versionEnabled*
+        are checked. Both must be set to *true* for the application to be considered *enabled*.
       operationId: isEnabled
       parameters:
         - name: appId
@@ -674,6 +676,11 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/IdString'
+        - name: version
+          in: query
+          description: Include specified application version in the check.
+          schema:
+            $ref: '#/components/schemas/AppVersionString'
       responses:
         '200':
           description: Check successful.
