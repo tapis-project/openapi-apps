@@ -1624,6 +1624,10 @@ components:
           $ref: '#/components/schemas/DirString'
         execSystemOutputDir:
           $ref: '#/components/schemas/DirString'
+        dtnSystemInputDir:
+          $ref: '#/components/schemas/DirString'
+        dtnSystemOutputDir:
+          $ref: '#/components/schemas/DirString'
         execSystemLogicalQueue:
           $ref: '#/components/schemas/QueueNameString'
         archiveSystemId:
