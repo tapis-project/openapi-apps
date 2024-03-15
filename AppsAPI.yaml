@@ -183,6 +183,8 @@ paths:
 
           - tenant
           - uuid
+          - isPublic
+          - sharedWithUsers
           - sharedAppCtx
           - deleted
           - created
@@ -531,9 +533,11 @@ paths:
           - id
           - owner
           - enabled
+          - versionEnabled
           - locked
+          - deleted
 
-        Note that the attributes owner, enabled and locked may be modified using other endpoints.
+        Note that the attributes owner, enabled, versionEnabled, locked and deleted may be modified using other endpoints.
       operationId: patchApp
       parameters:
         - name: appId
@@ -597,20 +601,23 @@ paths:
 
           - tenant
           - uuid
+          - isPublic
+          - sharedWithUsers
           - sharedAppCtx
           - deleted
           - created
           - updated
 
-        In addition for a PUT operation the following non-updatable attributes are allowed but ignored
+        In addition, for a PUT operation, the following non-updatable attributes are allowed but ignored
 
           - id
           - version
           - owner
           - enabled
+          - versionEnabled
           - locked
 
-        Note that the attributes owner, enabled and locked may be modified using other endpoints.
+        Note that the attributes owner, enabled, versionEnabled, locked and deleted may be modified using other endpoints.
       operationId: putApp
       parameters:
         - name: appId
