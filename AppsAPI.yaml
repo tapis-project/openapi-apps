@@ -101,9 +101,6 @@ paths:
           - *READ_PERM* Include only items for which requester was granter READ or MODIFY permission.
           - *MINE* Include items owned or shared directly with requester. Exclude publicly shared items.
           - *ALL* Include all items requester is authorized to view. Includes check for READ or MODIFY permission.
-
-        Certain Tapis services or a tenant administrator may use the query parameter *impersonationId* to be used in
-        place of the requesting Tapis user. Tapis will use this user Id when performing authorization.
       operationId: getApps
       parameters:
         - name: search
@@ -155,12 +152,7 @@ paths:
           schema:
             type: boolean
             default: false
-        - name: impersonationId
-          in: query
-          description: Restricted. Only certain Tapis services or a tenant administrator may impersonate a Tapis user.
-          schema:
-            type: string
-    responses:
+      responses:
         '200':
           description: Success.
           content:
@@ -401,9 +393,6 @@ paths:
         Retrieve latest version of an application. In the result the attribute *sharedAppCtx* indicates if the
         application is available to the user because it has been shared with the user. The value of *sharedAppCtx*
         will be the grantor, the Tapis user who shared the application.
-        
-        Certain Tapis services or a tenant administrator may use the query parameter *impersonationId* to be used in
-        place of the requesting Tapis user. Tapis will use this user Id when performing authorization.
       operationId: getAppLatestVersion
       parameters:
         - name: appId
@@ -426,11 +415,6 @@ paths:
         - name: resourceTenant
           in: query
           description: Restricted. May be used by Tapis services to set the tenant associated with the requested resource.
-          schema:
-            type: string
-        - name: impersonationId
-          in: query
-          description: Restricted. Only certain Tapis services or a tenant administrator may impersonate a Tapis user.
           schema:
             type: string
       responses:
@@ -472,9 +456,8 @@ paths:
         Retrieve information for an application given the application Id and version.
         In the result the attribute *sharedAppCtx* indicates if the application is available to the user because it has
         been shared with the user. The value of *sharedAppCtx* will be the grantor, the Tapis user who shared the application.
-
-        Certain Tapis services or a tenant administrator may use the query parameter *impersonationId* to be used in
-        place of the requesting Tapis user. Tapis will use this user Id when performing authorization.
+        Certain services may use the query parameter *impersonationId* to be used in place of the requesting
+        Tapis user. Tapis will use this user Id when performing authorization.
       operationId: getApp
       parameters:
         - name: appId
