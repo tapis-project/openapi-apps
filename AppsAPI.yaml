@@ -90,7 +90,9 @@ paths:
       tags:
         - Applications
       description: |
-        Retrieve list of applications. Use *listType*, *search* and *select* query parameters to limit results. Query
+        Retrieve list of applications.
+
+        Use *listType*, *search* and *select* query parameters to limit results. Query
         parameter *listType* allows for filtering results based on authorization. Options for *listType* are
 
           - *OWNED* Include only items owned by requester (Default)
