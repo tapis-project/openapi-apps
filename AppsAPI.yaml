@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Tapis Applications API
   description: The Tapis Applications API provides for management of Tapis applications including permissions.
-  version: '1.6.2'
+  version: '1.6.3'
   termsOfService: "https://tapis-project.org"
   contact:
     name: "Applications API - CICSupport"
@@ -160,7 +160,7 @@ paths:
           description: Restricted. Only certain Tapis services or a tenant administrator may impersonate a Tapis user.
           schema:
             type: string
-    responses:
+      responses:
         '200':
           description: Success.
           content:
