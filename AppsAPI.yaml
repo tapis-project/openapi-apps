@@ -2445,5 +2445,5 @@ components:
       enum:
         - ALWAYS
         - SKIP_ON_FAIL
-        - SKIP
+        - NEVER
       default: ALWAYS
