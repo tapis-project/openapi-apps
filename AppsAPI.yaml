@@ -1730,6 +1730,8 @@ components:
         archiveOnAppError:
           type: boolean
           default: true
+        archiveMode:
+          $ref: '#/components/schemas/ArchiveModeEnum'
         isMpi:
           type: boolean
           default: false
@@ -2438,3 +2440,10 @@ components:
         - GET_PERMS
         - GRANT_PERMS
         - REVOKE_PERMS
+    ArchiveModeEnum:
+      type: string
+      enum:
+        - ALWAYS
+        - SKIP_ON_FAIL
+        - NEVER
+      default: ALWAYS
